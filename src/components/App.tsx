@@ -1,24 +1,24 @@
 import React, { useCallback } from "react";
 import { ChangeEvent, useState, FC } from "react";
-import { MemoList } from "./MemoList"
+import { MemoList } from "./MemoList";
+import { useMemoList } from "../hooks/useMemoList";
 
 export const App: FC = () => {
+  const { memoList, addTodo, deleteTodo } = useMemoList();
+
   const [text, setText] = useState<string>("");
-  const [memoList, setMemoList] = useState<Array<string>>([]);
   const onChangeText = (e: ChangeEvent<HTMLInputElement>) => {
     setText(e.target.value);
   };
   const onClickAdd = () => {
-    const newMemoList = [...memoList];
-    newMemoList.push(text);
-    setMemoList(newMemoList);
+    addTodo(text);
     setText("");
   };
+
   const onClickDelete = useCallback((index: number) => {
-    const newMemoList = [...memoList];
-    newMemoList.splice(index, 1);
-    setMemoList(newMemoList);
-  },[memoList]);
+    deleteTodo(index);
+    //関数も入れられる。
+  },[deleteTodo]);
 
   return (
     <div className="App">
