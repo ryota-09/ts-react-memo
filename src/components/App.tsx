@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { ChangeEvent, useState, FC } from "react";
+import { MemoList } from "./MemoList"
 
 export const App: FC = () => {
   const [text, setText] = useState<string>("");
@@ -13,11 +14,12 @@ export const App: FC = () => {
     setMemoList(newMemoList);
     setText("");
   };
-  const onClickDelete = (index: number) => {
+  const onClickDelete = useCallback((index: number) => {
     const newMemoList = [...memoList];
     newMemoList.splice(index, 1);
     setMemoList(newMemoList);
-  };
+  },[memoList]);
+  
   return (
     <div className="App">
       <h1>簡単メモアプリ</h1>
