@@ -19,7 +19,7 @@ export const App: FC = () => {
     newMemoList.splice(index, 1);
     setMemoList(newMemoList);
   },[memoList]);
-  
+
   return (
     <div className="App">
       <h1>簡単メモアプリ</h1>
@@ -27,17 +27,7 @@ export const App: FC = () => {
       <button type="button" onClick={onClickAdd}>
         追加
       </button>
-      <div className="container">
-        <p>メモ一覧</p>
-        <ul>
-          {memoList.map((memo, index) => (
-            <li key={memo}>
-              <p>{memo}</p>
-              <button onClick={() => onClickDelete(index)}>削除</button>  
-            </li>
-          ))}
-        </ul>
-      </div>
+      <MemoList memoList={memoList} onClickDelete={onClickDelete} />
     </div>
   );
 };
